@@ -11,12 +11,24 @@
 
 ## 📸 Preview
 
-```
-  ● mdesa@MDS  ~  Desktop  main ✔   
-❯ ls
-```
+### Prompt limpio — Tokyo Night theme
+> Prompt en reposo mostrando los segmentos de OS (Windows), usuario@host, ruta actual y estado del último comando (✔ verde = éxito). La hora aparece alineada a la derecha actualizándose en tiempo real.
 
-Con iconos de color por tipo de archivo, segmento git en tiempo real, tiempo de ejecución de comandos y hora en el lado derecho del prompt.
+![Prompt limpio con tema Tokyo Night](preview03.png)
+
+---
+
+### Terminal-Icons — Iconos y colores por tipo de archivo
+> Al ejecutar `ls` cada archivo y carpeta aparece con su icono específico y color según el tipo: carpetas del sistema en blanco, carpetas especiales como Desktop, Documents o Music con iconos y colores distintivos, archivos de configuración con su icono propio (`.gitconfig` con el icono de Git, `.vscode` con el de VS Code). Los archivos ocultos también se muestran con diferenciación visual.
+
+![ls con Terminal-Icons mostrando iconos y colores por tipo](preview01.png)
+
+---
+
+### PSReadLine — Autocompletado predictivo con historial
+> Al escribir cualquier letra o fragmento de comando, PSReadLine despliega automáticamente una lista de coincidencias del historial de sesiones anteriores. Cada entrada muestra su origen `[History]`. Se navega con las flechas ↑↓ y se confirma con `Tab` o `Enter` — sin necesidad de recordar el comando completo.
+
+![PSReadLine con lista predictiva de historial desplegada](preview02.png)
 
 ---
 
@@ -44,13 +56,13 @@ Con iconos de color por tipo de archivo, segmento git en tiempo real, tiempo de 
 
 ## 🧠 Lógica inteligente por componente
 
-El script **no es solo un instalador** — en cada ejecución:
+El script **no es solo un instalador** — en cada ejecución evalúa cada componente de forma independiente:
 
 - ✅ Si el componente **no existe** → lo instala
 - 🔄 Si el componente está **desactualizado** → lo actualiza
 - ✔️ Si el componente está **al día** → no hace nada, solo reporta
 
-Esto lo hace **idempotente**: puedes ejecutarlo cada vez que quieras para mantener todo actualizado.
+Esto lo hace **idempotente**: puedes ejecutarlo cuando quieras para mantener todo actualizado sin riesgo de romper nada.
 
 ---
 
@@ -61,26 +73,28 @@ Esto lo hace **idempotente**: puedes ejecutarlo cada vez que quieras para manten
 - Conexión a Internet
 - PowerShell 5.1 o superior (viene preinstalado en Windows)
 
-### Un solo comando
+### Opción A — Descarga manual
 
-Abre **PowerShell como Administrador** y ejecuta:
+1. Descarga `ModernTerminal.ps1` de este repositorio
+2. Abre **PowerShell como Administrador**
+3. Navega a la carpeta donde lo descargaste y ejecuta:
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force
 .\ModernTerminal.ps1
 ```
 
-O directamente desde la web:
+### Opción B — Directamente desde la web
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/TU_USUARIO/ModernTerminal/main/ModernTerminal.ps1" -OutFile "$env:TEMP\ModernTerminal.ps1"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/mdesantis1984/Modernizaci-nTerminalWindows/main/ModernTerminal.ps1" -OutFile "$env:TEMP\ModernTerminal.ps1"
 & "$env:TEMP\ModernTerminal.ps1"
 ```
 
 > **Nota:** Se recomienda ejecutar como Administrador para instalar fuentes del sistema y paquetes globales. Sin permisos de admin el script continuará pero algunas instalaciones pueden quedar en scope de usuario.
 
-### ¿Qué pasa durante la ejecución?
+### Salida durante la ejecución
 
 ```
   ● Verificaciones previas...
@@ -133,7 +147,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/TU_USUARIO/ModernTermi
 | `Alt+Shift+Flechas` | Redimensionar paneles |
 | `Ctrl+=` / `Ctrl+-` | Aumentar/reducir fuente |
 | `Ctrl+0` | Restablecer tamaño fuente |
-| `Shift+Arriba/Abajo` | Scroll de 5 líneas |
+| `Shift+↑/↓` | Scroll de 5 líneas |
 | `Alt+Enter` | Pantalla completa |
 
 ---
@@ -186,10 +200,10 @@ grep texto  # Select-String
 reload      # Recargar el perfil de PS sin reiniciar
 ```
 
-### PSReadLine - atajos de teclado
+### PSReadLine — atajos de teclado
 | Atajo | Acción |
 |---|---|
-| `Tab` | Menú de autocompletado |
+| `Tab` | Menú de autocompletado interactivo |
 | `↑` / `↓` | Buscar en historial por lo que has escrito |
 | `Ctrl+D` | Cerrar terminal |
 | `Ctrl+L` | Limpiar pantalla |
@@ -198,7 +212,7 @@ reload      # Recargar el perfil de PS sin reiniciar
 
 ## 🎨 Cambiar el tema de color
 
-Edita el `settings.json` de Windows Terminal y cambia el campo `colorScheme` en `profiles.defaults`:
+Edita el `settings.json` de Windows Terminal y cambia `colorScheme` en `profiles.defaults`:
 
 ```json
 "colorScheme": "Tokyo Night"
@@ -206,7 +220,7 @@ Edita el `settings.json` de Windows Terminal y cambia el campo `colorScheme` en 
 
 Opciones disponibles: `Tokyo Night` · `Catppuccin Mocha` · `Dracula`
 
-Para editar el tema del prompt Oh-My-Posh, modifica:
+Para personalizar el prompt Oh-My-Posh, edita:
 ```
 ~\.config\ohmyposh\theme.omp.json
 ```
@@ -215,13 +229,13 @@ Para editar el tema del prompt Oh-My-Posh, modifica:
 
 ## 🔄 Mantener actualizado
 
-Simplemente vuelve a ejecutar el script en cualquier momento:
+Vuelve a ejecutar el script en cualquier momento:
 
 ```powershell
 .\ModernTerminal.ps1
 ```
 
-Solo actualizará los componentes que tengan una versión más nueva disponible. Los que ya estén al día se omiten.
+Solo actualizará los componentes desactualizados. Los que ya estén al día se omiten.
 
 ---
 
@@ -235,7 +249,7 @@ Solo actualizará los componentes que tengan una versión más nueva disponible.
 | Windows Terminal config | `~\AppData\Local\Packages\Microsoft.WindowsTerminal_*\LocalState\settings.json` |
 | Version tracker fuente | `~\.config\ohmyposh\.nf_version` |
 
-> El script hace backup automático del `settings.json` de Windows Terminal antes de modificarlo.
+> El script hace **backup automático** del `settings.json` de Windows Terminal antes de sobreescribirlo.
 
 ---
 
@@ -259,7 +273,7 @@ alias.undo      = reset HEAD~1 --mixed
 alias.stash-all = stash save --include-untracked
 ```
 
-> Si Git no tiene `user.name` y `user.email` configurados, el script te avisa con los comandos exactos a ejecutar.
+> Si Git no tiene `user.name` y `user.email` configurados, el script avisa con los comandos exactos a ejecutar.
 
 ---
 
@@ -272,10 +286,16 @@ alias.stash-all = stash save --include-untracked
 → Git está instalado pero el PATH no se actualizó. Cierra y vuelve a abrir Windows Terminal.
 
 **El tema OMP no carga / prompt sin cambios**
-→ Ejecuta `oh-my-posh init pwsh --config "$env:USERPROFILE\.config\ohmyposh\theme.omp.json" | Invoke-Expression` manualmente para ver el error.
+→ Ejecuta manualmente para ver el error:
+```powershell
+oh-my-posh init pwsh --config "$env:USERPROFILE\.config\ohmyposh\theme.omp.json" | Invoke-Expression
+```
 
 **El script se detiene por Execution Policy**
-→ Ejecuta primero: `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force`
+→ Ejecuta primero:
+```powershell
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+```
 
 **Error de permisos en instalación de fuentes**
 → Ejecuta PowerShell como Administrador.
